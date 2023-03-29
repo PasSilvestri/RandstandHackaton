@@ -63,7 +63,7 @@ class TClassifier(nn.Module):
             return_tensors="pt",
             padding=True,
             is_split_into_words=is_split_into_words,
-            # truncation=True # Warning!
+            truncation=True # Warning!
         ).to(device)
 
         transformer_outs = self.transformer_model(**batch_encoding)
