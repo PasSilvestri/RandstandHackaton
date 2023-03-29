@@ -31,7 +31,7 @@ class Trainer_nec(Trainer):
         predictions_raw = model.process_predictions(predictions)
         
         labels_processed = torch.as_tensor([ 
-            model.label_to_id[v] for v in labels_raw 
+            model.hparams["label_to_id"][v] for v in labels_raw 
         ])
 
         predictions = predictions.to(device)
