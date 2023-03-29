@@ -24,7 +24,10 @@ class TClassifier(nn.Module):
 
         self.tokenizer = AutoTokenizer.from_pretrained(hparams['transformer_name'])
 
-        self.n_labels = int(hparams['n_predicates_labels'])
+        self.id_to_label = ['Java Developer','Programmer','Software Engineer','System Analyst','Web Developer']
+        self.label_to_id = {l:i for i,l in enumerate(self.id_to_label)}
+
+        self.n_labels = len(self.id_to_label)
         
         # 1) Embedding
         self.transformer_model = AutoModel.from_pretrained(
@@ -85,7 +88,7 @@ class TClassifier(nn.Module):
 
     def process_predictions(self, predictions):
         indices = self.get_indices(predictions).cpu().detach().numpy()
-        predictions_processed = [ self.hparams['id_to_predicates'][v] for v in indices ]
+        predictions_processed = [ self.hparams['id_to_label'][v] for v in indices ]
         return predictions_processed
 
     def predict(
