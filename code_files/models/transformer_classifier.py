@@ -24,10 +24,9 @@ class TClassifier(nn.Module):
 
         self.tokenizer = AutoTokenizer.from_pretrained(hparams['transformer_name'])
 
-        self.id_to_label = ['Java Developer','Programmer','Software Engineer','System Analyst','Web Developer']
-        self.label_to_id = {l:i for i,l in enumerate(self.id_to_label)}
+        self.hparams["label_to_id"] = {l:i for i,l in enumerate(self.hparams["id_to_label"])}
 
-        self.n_labels = len(self.id_to_label)
+        self.n_labels = len(self.hparams["id_to_label"])
         
         # 1) Embedding
         self.transformer_model = AutoModel.from_pretrained(
